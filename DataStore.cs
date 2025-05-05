@@ -246,12 +246,15 @@ public class DataStore
 			30 => $"<size=24>{killerName} is WICKED SICK!",
 			_ => null
 		};
+		
+		FixedString512Bytes unityMessage = Markup.Prefix + message;
 
-		ServerChatUtils.SendSystemMessageToAllClients(VWorld.Server.EntityManager, Markup.Prefix + message);
+		ServerChatUtils.SendSystemMessageToAllClients(VWorld.Server.EntityManager, ref unityMessage);
 
 		if (!string.IsNullOrEmpty(killMsg) && Settings.AnnounceKillstreak)
 		{
-			ServerChatUtils.SendSystemMessageToAllClients(VWorld.Server.EntityManager, Markup.Prefix + killMsg);
+			unityMessage = Markup.Prefix + killMsg;
+			ServerChatUtils.SendSystemMessageToAllClients(VWorld.Server.EntityManager, ref unityMessage);
 		}
 	}
 
